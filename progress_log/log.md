@@ -57,3 +57,5 @@ Once we have a model that has more knowledge, I should turn my attention to grou
 -   Qwen/Qwen2.5-0.5B-Instruct
 -   meta-llama/Llama-3.2-1B-Instruct
 -   google/gemma-3-4b-it
+
+Models around this scale are possible of running locally on my CPU without slowing me down too much. E.g. a simple question to the 0.5B param Qwen model takes just over a second to get a response.
