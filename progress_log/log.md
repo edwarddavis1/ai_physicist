@@ -57,5 +57,106 @@ Once we have a model that has more knowledge, I should turn my attention to grou
 -   Qwen/Qwen2.5-0.5B-Instruct
 -   meta-llama/Llama-3.2-1B-Instruct
 -   google/gemma-3-4b-it
+-   google/gemma-3-270m-it (just came out!)
 
 Models around this scale are possible of running locally on my CPU without slowing me down too much. E.g. a simple question to the 0.5B param Qwen model takes just over a second to get a response.
+
+# [2025-8-15 Fri]
+
+## Is the UGPhysics dataset a good benchmark?
+
+While this is a decently large dataset containing questions and answers, these questions involve mathematical reasoning, which language models (especially small ones) are no good at. In these situations the ideal behaviour would be to call some tool to help reason the question.
+
+## A simpler benchmark - MMLU-Pro Physics Questions
+
+These appear to be more like high school/sixth-form-level questions.
+
+-   Average num tokens per q: 171
+-   Total num tokens: 200k
+
+## High Level Plan: Structure the question, RAG, math tooling.
+
+First, get some idea of how well base models do on this dataset.
+
+Let us initially assume that most of these (now high-school-level) questions can be solved by first selecting the correct formula, based on the variables, then plugging the values into the formula to compute the answer. Then consider the following pipeline:
+
+1. Use LangExtract to convert the free text question into a JSON containing the known and unknown physics variables by name, value and unit.
+2. Based on the information from the structured question, select a formula from a formula sheet (or knowledge base) which contains the physics variables. I.e. have an embedding of each equation based on the physics variables it contains, this will then be found based on a query including those same variables.
+3. Once the RAG pipeline identifies an equation, for calculation, use an external tool (Wolfram Alpha API?)
+
+### Required formatting for the formula sheet
+
+-   Name of all variables included (excluding constants)
+-   SI units
+-   Standard symbol for each variable ({"Energy":"E", "Potential Difference":"V"})
+-   Latex formatting of equation (so it can write it in the working)
+-   Equation name (for reference)
+-   Physics topic
+
+_Example: Newton's Second Law_
+
+```
+{
+    "formula_name": "Newton's Second Law",
+    "equation_latex": "F = ma",
+    "topic": "Mechanics",
+    "variables": [
+      {
+        "symbol": "F",
+        "name": "Force",
+        "unit": "Newtons (N)"
+      },
+      {
+        "symbol": "m",
+        "name": "Mass",
+        "unit": "Kilograms (kg)"
+      },
+      {
+        "symbol": "a",
+        "name": "Acceleration",
+        "unit": "m/s^2"
+      }
+    ]
+}
+```
+
+## Initial Base Model Performance on MMLU-Pro Physics Questions
+
+_Note that if an answer could not be extracted from any of the 10 questions, those question were omitted from testing_
+
+| Dataset                     | Model              | Total Questions | Correct Answers | Accuracy |
+| --------------------------- | ------------------ | --------------- | --------------- | -------- |
+| ori_mmlu-astronomy          | openai/gpt-oss-20B | 9               | 5               | 55.56%   |
+| stemez-Mechanics            | openai/gpt-oss-20B | 6               | 6               | 100.00%  |
+| stemez-Optics               | openai/gpt-oss-20B | 3               | 2               | 66.67%   |
+| stemez-Physics              | openai/gpt-oss-20B | 8               | 7               | 87.50%   |
+| scibench-thermo             | openai/gpt-oss-20B | 6               | 6               | 100.00%  |
+| ori_mmlu-college_physics    | openai/gpt-oss-20B | 5               | 4               | 80.00%   |
+| ori_mmlu-conceptual_physics | openai/gpt-oss-20B | 10              | 9               | 90.00%   |
+
+### Initial Results Discussion: gpt-oss-20B
+
+Contrary to what I would have thought, it performed better at the more mathsy topics (when formatting allowed to extract an answer) in comparison to the astronomy. I expected the mathsy topics to be worse as LLMs are famously bad at arithmetic computation.
+
+Note that it might well be my stringent token limit of 512 which is the reason why I can't get an answer from the model. So currently I'm not going to focus on why extraction seems to fail fairly often.
+
+Overall I'm surprised at how well the gpt-oss-20B model did. **Almost suspicious**. Could it be the case that gpt-oss was just benchmaxxed to this dataset?
+
+### Other models
+
+-   "Qwen/Qwen3-4B-Thinking-2507": Takes a crazy amount of output tokens to get to an answer - even when explicitly told to return only an answer index. E.g. it won't provide an answer even with max_tokens set to 2040.
+
+#### "Qwen/Qwen3-32B":
+
+| Dataset                     | Model          | Total Questions | Correct Answers | Accuracy |
+| --------------------------- | -------------- | --------------- | --------------- | -------- |
+| ori_mmlu-conceptual_physics | Qwen/Qwen3-32B | 9               | 8               | 88.89%   |
+| ori_mmlu-astronomy          | Qwen/Qwen3-32B | 8               | 7               | 87.50%   |
+
+Qwen does even better than gpt-oss - maybe they're all better at Physics than I first thought...
+
+Is the benchmark too easy?
+
+I could go back to the UGPhysics benchmark, but the answers are very unstructured in those datasets, making evaluation difficult. Due to time constraints, it would be much easier working with this dataset.
+
+## Initial Performance on Scibench

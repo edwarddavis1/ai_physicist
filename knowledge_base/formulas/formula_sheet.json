@@ -1,0 +1,252 @@
+[
+    {
+        "formula_name": "Newton's Second Law of Motion",
+        "equation_latex": "F_{net} = ma",
+        "topic": "Dynamics",
+        "variables": [
+            {
+                "symbol": "F_{net}",
+                "name": "Net Force",
+                "unit": "Newtons (N)"
+            },
+            {
+                "symbol": "m",
+                "name": "Mass",
+                "unit": "Kilograms (kg)"
+            },
+            {
+                "symbol": "a",
+                "name": "Acceleration",
+                "unit": "m/s^2"
+            }
+        ]
+    },
+    {
+        "formula_name": "Kinetic Energy",
+        "equation_latex": "K = \\frac{1}{2}mv^2",
+        "topic": "Energy",
+        "variables": [
+            {
+                "symbol": "K",
+                "name": "Kinetic Energy",
+                "unit": "Joules (J)"
+            },
+            {
+                "symbol": "m",
+                "name": "Mass",
+                "unit": "Kilograms (kg)"
+            },
+            {
+                "symbol": "v",
+                "name": "Velocity",
+                "unit": "m/s"
+            }
+        ]
+    },
+    {
+        "formula_name": "Gravitational Potential Energy",
+        "equation_latex": "U = mgh",
+        "topic": "Energy",
+        "variables": [
+            {
+                "symbol": "U",
+                "name": "Gravitational Potential Energy",
+                "unit": "Joules (J)"
+            },
+            {
+                "symbol": "m",
+                "name": "Mass",
+                "unit": "Kilograms (kg)"
+            },
+            {
+                "symbol": "g",
+                "name": "Acceleration due to gravity",
+                "unit": "m/s^2"
+            },
+            {
+                "symbol": "h",
+                "name": "Height",
+                "unit": "Meters (m)"
+            }
+        ]
+    },
+    {
+        "formula_name": "Linear Momentum",
+        "equation_latex": "p = mv",
+        "topic": "Momentum",
+        "variables": [
+            {
+                "symbol": "p",
+                "name": "Momentum",
+                "unit": "kg·m/s"
+            },
+            {
+                "symbol": "m",
+                "name": "Mass",
+                "unit": "Kilograms (kg)"
+            },
+            {
+                "symbol": "v",
+                "name": "Velocity",
+                "unit": "m/s"
+            }
+        ]
+    },
+    {
+        "formula_name": "Work-Energy Theorem",
+        "equation_latex": "W = \\Delta K",
+        "topic": "Work & Energy",
+        "variables": [
+            {
+                "symbol": "W",
+                "name": "Work done",
+                "unit": "Joules (J)"
+            },
+            {
+                "symbol": "\\Delta K",
+                "name": "Change in Kinetic Energy",
+                "unit": "Joules (J)"
+            }
+        ]
+    },
+    {
+        "formula_name": "Velocity (Kinematics)",
+        "equation_latex": "v = v_0 + at",
+        "topic": "Kinematics",
+        "variables": [
+            {
+                "symbol": "v",
+                "name": "Final Velocity",
+                "unit": "m/s"
+            },
+            {
+                "symbol": "v_0",
+                "name": "Initial Velocity",
+                "unit": "m/s"
+            },
+            {
+                "symbol": "a",
+                "name": "Acceleration",
+                "unit": "m/s^2"
+            },
+            {
+                "symbol": "t",
+                "name": "Time",
+                "unit": "Seconds (s)"
+            }
+        ]
+    },
+    {
+        "formula_name": "Displacement (Kinematics)",
+        "equation_latex": "\\Delta x = v_0 t + \\frac{1}{2}at^2",
+        "topic": "Kinematics",
+        "variables": [
+            {
+                "symbol": "\\Delta x",
+                "name": "Displacement",
+                "unit": "Meters (m)"
+            },
+            {
+                "symbol": "v_0",
+                "name": "Initial Velocity",
+                "unit": "m/s"
+            },
+            {
+                "symbol": "t",
+                "name": "Time",
+                "unit": "Seconds (s)"
+            },
+            {
+                "symbol": "a",
+                "name": "Acceleration",
+                "unit": "m/s^2"
+            }
+        ]
+    },
+    {
+        "formula_name": "Universal Law of Gravitation",
+        "equation_latex": "F_g = G \\frac{m_1 m_2}{r^2}",
+        "topic": "Gravitation",
+        "variables": [
+            {
+                "symbol": "F_g",
+                "name": "Gravitational Force",
+                "unit": "Newtons (N)"
+            },
+            {
+                "symbol": "G",
+                "name": "Gravitational Constant",
+                "unit": "N·m^2/kg^2"
+            },
+            {
+                "symbol": "m_1",
+                "name": "Mass of first object",
+                "unit": "Kilograms (kg)"
+            },
+            {
+                "symbol": "m_2",
+                "name": "Mass of second object",
+                "unit": "Kilograms (kg)"
+            },
+            {
+                "symbol": "r",
+                "name": "Distance between centers of the masses",
+                "unit": "Meters (m)"
+            }
+        ]
+    },
+    {
+        "formula_name": "Centripetal Force",
+        "equation_latex": "F_c = \\frac{mv^2}{r}",
+        "topic": "Circular Motion",
+        "variables": [
+            {
+                "symbol": "F_c",
+                "name": "Centripetal Force",
+                "unit": "Newtons (N)"
+            },
+            {
+                "symbol": "m",
+                "name": "Mass",
+                "unit": "Kilograms (kg)"
+            },
+            {
+                "symbol": "v",
+                "name": "Velocity",
+                "unit": "m/s"
+            },
+            {
+                "symbol": "r",
+                "name": "Radius of the circular path",
+                "unit": "Meters (m)"
+            }
+        ]
+    },
+    {
+        "formula_name": "Torque",
+        "equation_latex": "\\tau = rF\\sin(\\theta)",
+        "topic": "Rotational Motion",
+        "variables": [
+            {
+                "symbol": "\\tau",
+                "name": "Torque",
+                "unit": "Newton-meters (N·m)"
+            },
+            {
+                "symbol": "r",
+                "name": "Distance from the axis of rotation to the point where the force is applied",
+                "unit": "Meters (m)"
+            },
+            {
+                "symbol": "F",
+                "name": "Force",
+                "unit": "Newtons (N)"
+            },
+            {
+                "symbol": "\\theta",
+                "name": "Angle between the force vector and the lever arm vector",
+                "unit": "Radians (rad)"
+            }
+        ]
+    }
+]

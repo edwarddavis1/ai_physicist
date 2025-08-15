@@ -1,0 +1,140 @@
+[
+    {
+        "question_id": 9059,
+        "question": "A muscle fiber contracts by $3.5 \\mathrm{~cm}$ and in doing so lifts a weight. Calculate the work performed by the fiber. Assume the muscle fiber obeys Hooke's law $F=-k x$ with a force constant $k$ of $750 . \\mathrm{N} \\mathrm{m}^{-1}$.",
+        "options": [
+            "0.25 $\\mathrm{~J}$",
+            " 0.46$\\mathrm{~J}$",
+            "0.85 J",
+            "0.52 J",
+            "1.00 J",
+            "0.30 J",
+            "0.75 $\\mathrm{~J}$",
+            "0.90 J",
+            "0.60 $\\mathrm{~J}$",
+            "0.65 J"
+        ],
+        "category": "physics",
+        "src": "scibench-thermo",
+        "answer_index": 1,
+        "model_id": "openai/gpt-oss-20B",
+        "thinking": "The work done is the integral of the force over the displacement:  \n\\(W=\\int_0^x kx'\\,dx' = \\frac12 kx^2\\).  \nHere \\(x=3.5\\text{ cm}=0.035\\text{ m}\\) and \\(k=750\\text{ N/m}\\).  \n\\(W=\\frac12(750)(0.035)^2 =\\frac12(750)(0.001225)=0.459\\text{ J}\\approx0.46\\text{ J}\\).  \n\nAnswer: 1",
+        "ai_answer": 1,
+        "correct": true
+    },
+    {
+        "question_id": 9060,
+        "question": "A system consisting of $82.5 \\mathrm{~g}$ of liquid water at $300 . \\mathrm{K}$ is heated using an immersion heater at a constant pressure of 1.00 bar. If a current of $1.75 \\mathrm{~A}$ passes through the $25.0 \\mathrm{ohm}$ resistor for 100 .s, what is the final temperature of the water?",
+        "options": [
+            " 322$\\mathrm{~K}$",
+            "335$\\mathrm{~K}$",
+            "340$\\mathrm{~K}$",
+            "310$\\mathrm{~K}$",
+            "345$\\mathrm{~K}$",
+            "330$\\mathrm{~K}$",
+            "300$\\mathrm{~K}$",
+            "325$\\mathrm{~K}$",
+            "315$\\mathrm{~K}$",
+            "350$\\mathrm{~K}$"
+        ],
+        "category": "physics",
+        "src": "scibench-thermo",
+        "answer_index": 0,
+        "model_id": "openai/gpt-oss-20B",
+        "thinking": "The heater supplies power \\(P=I^2R=(1.75\\,\\text{A})^2(25\\,\\Omega)=76.6\\,\\text{W}\\).  \nEnergy in 100\u202fs: \\(Q=P\\,t=76.6\\times100=7.66\\times10^3\\,\\text{J}\\).\n\nWater mass \\(m=82.5\\,\\text{g}=0.0825\\,\\text{kg}\\).  \nSpecific heat \\(c=4.18\\times10^3\\,\\text{J kg}^{-1}\\text{K}^{-1}\\).\n\n\\(\\Delta T = Q/(mc)=7.66\\times10^3/(0.0825\\times4180)\\approx22.2\\,\\text{K}\\).\n\nFinal \\(T=300+22.2\\approx322\\,\\text{K}\\).\n\nAnswer: 0",
+        "ai_answer": 0,
+        "correct": true
+    },
+    {
+        "question_id": 9061,
+        "question": "Consider the half-cell reaction $\\operatorname{AgCl}(s)+\\mathrm{e}^{-} \\rightarrow$ $\\operatorname{Ag}(s)+\\mathrm{Cl}^{-}(a q)$. If $\\mu^{\\circ}(\\mathrm{AgCl}, s)=-109.71 \\mathrm{~kJ} \\mathrm{~mol}^{-1}$, and if $E^{\\circ}=+0.222 \\mathrm{~V}$ for this half-cell, calculate the standard Gibbs energy of formation of $\\mathrm{Cl}^{-}(a q)$.",
+        "options": [
+            "-137.5 $\\mathrm{~kJ} \\mathrm{~mol}^{-1}$",
+            "-140.9 kJ mol^{-1}",
+            " -131.1 $\\mathrm{~kJ} \\mathrm{~mol}^{-1}$",
+            "-145.2 $\\mathrm{~kJ} \\mathrm{~mol}^{-1}$",
+            "-122.7 $\\mathrm{~kJ} \\mathrm{~mol}^{-1}$",
+            "-128.4 kJ mol^{-1}",
+            "-155.7 kJ mol^{-1}",
+            "-150.3 kJ mol^{-1}",
+            "-100.0 kJ mol^{-1}",
+            "-115.6 kJ mol^{-1}"
+        ],
+        "category": "physics",
+        "src": "scibench-thermo",
+        "answer_index": 2,
+        "model_id": "openai/gpt-oss-20B",
+        "thinking": "The reaction\u2019s \u0394G\u00b0 = \u2013nFE\u00b0 with n=1, F=96485\u202fC\u202fmol\u207b\u00b9:  \n\u0394G\u00b0 = \u2013(96485)(0.222)\u202fJ\u202fmol\u207b\u00b9 \u2248 \u20132.14\u00d710\u2074\u202fJ\u202fmol\u207b\u00b9 \u2248 \u201321.4\u202fkJ\u202fmol\u207b\u00b9.  \nFor the half\u2011cell: \u0394G\u00b0 = \u03bc\u00b0(Ag) + \u03bc\u00b0(Cl\u207b) \u2013 \u03bc\u00b0(AgCl).  \nSince \u03bc\u00b0(Ag) = 0, \u03bc\u00b0(Cl\u207b) = \u0394G\u00b0 + \u03bc\u00b0(AgCl) = \u201321.4\u202fkJ + (\u2013109.71\u202fkJ) \u2248 \u2013131.1\u202fkJ\u202fmol\u207b\u00b9.  \n\nAnswer: 2",
+        "ai_answer": 2,
+        "correct": true
+    },
+    {
+        "question_id": 9175,
+        "question": "A hiker caught in a thunderstorm loses heat when her clothing becomes wet. She is packing emergency rations that if completely metabolized will release $35 \\mathrm{~kJ}$ of heat per gram of rations consumed. How much rations must the hiker consume to avoid a reduction in body temperature of $2.5 \\mathrm{~K}$ as a result of heat loss? Assume the heat capacity of the body equals that of water and that the hiker weighs $51 \\mathrm{~kg}$.",
+        "options": [
+            "40 g",
+            "35 g",
+            "50 g",
+            "10 $\\mathrm{~g}$",
+            "20 $\\mathrm{~g}$",
+            "30 g",
+            " 15$\\mathrm{~g}$",
+            "25 $\\mathrm{~g}$",
+            "5 g",
+            "45 g"
+        ],
+        "category": "physics",
+        "src": "scibench-thermo",
+        "answer_index": 6,
+        "model_id": "openai/gpt-oss-20B",
+        "thinking": "The hiker needs \\(Q = mc\\Delta T = 51\\,\\text{kg} \\times 4.18\\,\\text{J/gK} \\times 2.5\\,\\text{K}\\).  \nConvert mass to grams: \\(51\\,\\text{kg}=51000\\,\\text{g}\\).  \n\\(Q = 51000 \\times 4.18 \\times 2.5 \\approx 5.33\\times10^5\\,\\text{J}\\).\n\nRations yield \\(35\\,\\text{kJ/g}=35000\\,\\text{J/g}\\).  \nGrams required: \\(5.33\\times10^5/35000 \\approx 15.2\\,\\text{g}\\).\n\nClosest option is 15\u202fg, which is option index 6.  \nAnswer: 6",
+        "ai_answer": 6,
+        "correct": true
+    },
+    {
+        "question_id": 9176,
+        "question": "The thermal conductivities of acetylene $\\left(\\mathrm{C}_2 \\mathrm{H}_2\\right)$ and $\\mathrm{N}_2$ at $273 \\mathrm{~K}$ and $1 \\mathrm{~atm}$ are 0.01866 and $0.0240 \\mathrm{~J} \\mathrm{~K}^{-1} \\mathrm{~m}^{-1} \\mathrm{~s}^{-1}$, respectively. Based on these data, what is the ratio of the collisional cross section of acetylene relative to $\\mathrm{N}_2$ ?",
+        "options": [
+            "0.78",
+            "0.65",
+            "0.85",
+            "1.57",
+            " 1.33",
+            "0.50",
+            "2.00",
+            "1.75",
+            "0.95",
+            "1.10"
+        ],
+        "category": "physics",
+        "src": "scibench-thermo",
+        "answer_index": 4,
+        "model_id": "openai/gpt-oss-20B",
+        "thinking": "The thermal conductivity \\(k\\) of a dilute gas is proportional to the mean free path \\( \\lambda \\), which varies inversely with the collision cross\u2011section \\( \\sigma \\):  \n\\(k \\propto \\lambda \\propto 1/\\sigma\\).  \nThus,\n\\[\n\\frac{\\sigma_{\\text{C}_2\\text{H}_2}}{\\sigma_{\\text{N}_2}}\n= \\frac{k_{\\text{N}_2}}{k_{\\text{C}_2\\text{H}_2}}\n= \\frac{0.0240}{0.01866}\\approx1.29\n\\]\nThe closest option is 1.33.\n\nAnswer: 4",
+        "ai_answer": 4,
+        "correct": true
+    },
+    {
+        "question_id": 9376,
+        "question": "Calculate $\\Delta G$ for the isothermal expansion of $2.25 \\mathrm{~mol}$ of an ideal gas at $325 \\mathrm{~K}$ from an initial pressure of 12.0 bar to a final pressure of 2.5 bar.",
+        "options": [
+            "-7.89 $10^3 \\mathrm{~J}$",
+            "-12.75 $10^3 \\mathrm{~J}$",
+            "-8.01 $10^3 \\mathrm{~J}$",
+            "-10.02 $10^3 \\mathrm{~J}$",
+            "-11.32 $10^3 \\mathrm{~J}$",
+            "-5.89 $10^3 \\mathrm{~J}$",
+            "-6.47 $10^3 \\mathrm{~J}$",
+            " -9.54 $10^3 \\mathrm{~J}$",
+            "-10.76 $10^3 \\mathrm{~J}$",
+            "-8.23 $10^3 \\mathrm{~J}$"
+        ],
+        "category": "physics",
+        "src": "scibench-thermo",
+        "answer_index": 7,
+        "model_id": "openai/gpt-oss-20B",
+        "thinking": "Answer: 7",
+        "ai_answer": 7,
+        "correct": true
+    }
+]

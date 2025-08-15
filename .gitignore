@@ -20,3 +20,5 @@ Thumbs.db
 *.pth
 *.pkl
 data/
+
+.env
