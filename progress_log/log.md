@@ -120,11 +120,43 @@ _Example: Newton's Second Law_
 }
 ```
 
-## Initial Performance on MMLU-Pro Physics Questions
+## Initial Base Model Performance on MMLU-Pro Physics Questions
 
-Based on the first ten mechanics questions:
+_Note that if an answer could not be extracted from any of the 10 questions, those question were omitted from testing_
 
-Performance Analysis: openai/gpt-oss-20B
-Total Questions: 9
-Correct Answers: 5
-Accuracy: 55.56%
+| Dataset                     | Model              | Total Questions | Correct Answers | Accuracy |
+| --------------------------- | ------------------ | --------------- | --------------- | -------- |
+| ori_mmlu-astronomy          | openai/gpt-oss-20B | 9               | 5               | 55.56%   |
+| stemez-Mechanics            | openai/gpt-oss-20B | 6               | 6               | 100.00%  |
+| stemez-Optics               | openai/gpt-oss-20B | 3               | 2               | 66.67%   |
+| stemez-Physics              | openai/gpt-oss-20B | 8               | 7               | 87.50%   |
+| scibench-thermo             | openai/gpt-oss-20B | 6               | 6               | 100.00%  |
+| ori_mmlu-college_physics    | openai/gpt-oss-20B | 5               | 4               | 80.00%   |
+| ori_mmlu-conceptual_physics | openai/gpt-oss-20B | 10              | 9               | 90.00%   |
+
+### Initial Results Discussion: gpt-oss-20B
+
+Contrary to what I would have thought, it performed better at the more mathsy topics (when formatting allowed to extract an answer) in comparison to the astronomy. I expected the mathsy topics to be worse as LLMs are famously bad at arithmetic computation.
+
+Note that it might well be my stringent token limit of 512 which is the reason why I can't get an answer from the model. So currently I'm not going to focus on why extraction seems to fail fairly often.
+
+Overall I'm surprised at how well the gpt-oss-20B model did. **Almost suspicious**. Could it be the case that gpt-oss was just benchmaxxed to this dataset?
+
+### Other models
+
+-   "Qwen/Qwen3-4B-Thinking-2507": Takes a crazy amount of output tokens to get to an answer - even when explicitly told to return only an answer index. E.g. it won't provide an answer even with max_tokens set to 2040.
+
+#### "Qwen/Qwen3-32B":
+
+| Dataset                     | Model          | Total Questions | Correct Answers | Accuracy |
+| --------------------------- | -------------- | --------------- | --------------- | -------- |
+| ori_mmlu-conceptual_physics | Qwen/Qwen3-32B | 9               | 8               | 88.89%   |
+| ori_mmlu-astronomy          | Qwen/Qwen3-32B | 8               | 7               | 87.50%   |
+
+Qwen does even better than gpt-oss - maybe they're all better at Physics than I first thought...
+
+Is the benchmark too easy?
+
+I could go back to the UGPhysics benchmark, but the answers are very unstructured in those datasets, making evaluation difficult. Due to time constraints, it would be much easier working with this dataset.
+
+## Initial Performance on Scibench

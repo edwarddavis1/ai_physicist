@@ -1,0 +1,25 @@
+[
+    {
+        "question_id": 9114,
+        "question": "Among these colors, the one that has the most energy per photon is",
+        "options": [
+            "violet",
+            "turquoise",
+            "green",
+            "blue",
+            "red",
+            "pink",
+            "yellow-green",
+            "white",
+            "orange",
+            "indigo"
+        ],
+        "category": "physics",
+        "src": "ori_mmlu-conceptual_physics",
+        "answer_index": 0,
+        "model_id": "Qwen/Qwen3-32B",
+        "thinking": "\n\nAnswer: 0",
+        "ai_answer": 0,
+        "correct": true
+    }
+]

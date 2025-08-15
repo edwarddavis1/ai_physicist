@@ -31,7 +31,8 @@ unique_src = list(set([item["src"] for item in dataset]))
 print(f"There are {len(unique_src)} unique sources of questions in the dataset.")
 
 
-subject = unique_src[-1] # More mathsy.
+subject = "ori_mmlu-astronomy"
+# subject = "ori_mmlu-conceptual_physics" 
 
 
 dataset_for_subject = dataset.filter(lambda x: x['src'] == subject)
@@ -41,24 +42,24 @@ print(f"Number of questions on {subject}: {len(dataset_for_subject)}")
 # %%
 # Look at some example questions
 
-# idx = 1
-# question = dataset_for_subject['question'][idx]
-# options = dataset_for_subject['options'][idx]
-# answer_index = dataset_for_subject['answer_index'][idx]
+idx = 0
+question = dataset_for_subject['question'][idx]
+options = dataset_for_subject['options'][idx]
+answer_index = dataset_for_subject['answer_index'][idx]
 
-# formatted_question = f"{question}\n\nOptions:\n"
-# for i, option in enumerate(options):
-#     formatted_question += f"{i}. {option}\n"
+formatted_question = f"{question}\n\nOptions:\n"
+for i, option in enumerate(options):
+    formatted_question += f"{i}. {option}\n"
 
-# print(formatted_question)
+print(formatted_question)
 
 
 
 # %%
 # MODEL_ID = "Qwen/Qwen3-235B-A22B"
-MODEL_ID = "openai/gpt-oss-20B"
+# MODEL_ID = "openai/gpt-oss-20B"
+MODEL_ID = "Qwen/Qwen3-32B"
 # MODEL_ID = "Qwen/Qwen2.5-0.5B-Instruct"
-# MODEL_ID = "google/gemma-3-270m-it"
 
 # Minimal HuggingFace model setup (extracted from GetHuggingFaceModel class)
 api_token = os.getenv("HUGGINGFACE_API_TOKEN")
@@ -98,12 +99,14 @@ except Exception as e:
 # print(f"Average number of input tokens per question: {average_tokens}")
 # print(f"Total number of tokens across all questions: {total_tokens}")
 
+
 # %%
 idx = 0
 answers_by_question = []
 
 for idx in tqdm(range(10)):
 
+    question_id = dataset_for_subject['question_id'][idx]
     question = dataset_for_subject['question'][idx]
     options = dataset_for_subject['options'][idx]
     answer_index = dataset_for_subject['answer_index'][idx]
@@ -122,6 +125,18 @@ for idx in tqdm(range(10)):
     {formatted_question}
 
     """
+
+    # Use this prompt if struggling to get an answer out in 512 tokens
+
+    # PROMPT_TEMPLATE = """
+    # You are a helpful and knowledgeable assistant, specialising in Physics. Below is a multiple-choice question. Provide only the index of your selected answer - no other surrounding words or punctuation.
+
+    # Question:
+    # {formatted_question}
+
+    # Answer:
+    # """
+
 
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
     prompt = prompt_template.format(formatted_question=formatted_question)
@@ -149,7 +164,7 @@ for idx in tqdm(range(10)):
 
     answers_by_question.append({
         # Question data
-        "question_id": dataset_for_subject['question_id'][idx],
+        "question_id": question_id,
         "question": question,
         "options": options,
         "category": dataset_for_subject['category'][idx],
@@ -167,7 +182,7 @@ for idx in tqdm(range(10)):
 
 # Save based on model and clock (to avoid overwriting)
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-output_file = f"{results_dir}/answers_by_question_{MODEL_ID.replace('/', '_')}_{timestamp}.json"
+output_file = f"{results_dir}/base_model/answers_by_question_{MODEL_ID.replace('/', '_')}_{timestamp}.json"
 
 with open(output_file, "w") as f:
     json.dump(answers_by_question, f, indent=4)
@@ -188,3 +203,5 @@ print(f"Accuracy: {accuracy:.2f}%")
 # Average number of characters in thinking 
 average_thinking_length = sum(len(answer["thinking"]) for answer in answers_by_question) / total_questions if total_questions > 0 else 0
 print(f"Average Thinking Length: {average_thinking_length:.2f} characters")
+
+# %%

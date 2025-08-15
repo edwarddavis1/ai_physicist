@@ -1,0 +1,71 @@
+[
+    {
+        "question_id": 9151,
+        "question": "A helium-cadmium laser emits a beam of light 2 mm in diameter and containing the wavelengths 325 and 488 nm, respectively. At what distance from the laser, assuming diffraction-limited performance and propagation through free space, would these two components be separated by 1 cm?",
+        "options": [
+            "100 m",
+            "50 m",
+            "120 m",
+            "150 m",
+            "40 m",
+            "250 m",
+            "200 m",
+            "300 m",
+            "75 m",
+            "500 m"
+        ],
+        "category": "physics",
+        "src": "stemez-Optics",
+        "answer_index": 0,
+        "model_id": "openai/gpt-oss-20B",
+        "thinking": "The diffraction\u2011limited divergence is \u03b8\u2248\u03bb/(\u03c0w0).  \nw0=1\u202fmm=1\u00d710\u207b\u00b3\u202fm.  \n\n\u03b8\u2081=3.25\u00d710\u207b\u2077/(\u03c0\u00b710\u207b\u00b3)=1.03\u00d710\u207b\u2074\u202frad  \n\u03b8\u2082=4.88\u00d710\u207b\u2077/(\u03c0\u00b710\u207b\u00b3)=1.55\u00d710\u207b\u2074\u202frad  \n\n\u0394\u03b8\u22485.2\u00d710\u207b\u2075\u202frad.  \nRequired separation s=0.01\u202fm gives L=s/\u0394\u03b8\u22480.01/5.2e\u20115\u22481.92\u00d710\u00b2\u202fm\u2248200\u202fm.  \n\nAnswer: 6",
+        "ai_answer": 6,
+        "correct": false
+    },
+    {
+        "question_id": 9157,
+        "question": "A single slit, illuminated by red light of 650nm, gives first orderFraunhoferdiffraction minima that have angular distances of \\texttheta = 5\u00b0 from the optic axis. How wide is the slit?",
+        "options": [
+            "6.5 \u00d7 10^-4 mm",
+            "9 \u00d7 10^-4 mm",
+            "7.45 \u00d7 10^-3 mm",
+            "8 \u00d7 10^-3 mm",
+            "5 \u00d7 10^-3 mm",
+            "1 \u00d7 10^-3 mm",
+            "1.5 \u00d7 10^-3 mm",
+            "3 \u00d7 10^-3 mm",
+            "2 \u00d7 10^-4 mm",
+            "4.7 \u00d7 10^-3 mm"
+        ],
+        "category": "physics",
+        "src": "stemez-Optics",
+        "answer_index": 2,
+        "model_id": "openai/gpt-oss-20B",
+        "thinking": "The first minimum occurs when \\(a\\sin\\theta=\\lambda\\).  \n\\[\na=\\frac{\\lambda}{\\sin\\theta}=\\frac{650\\times10^{-9}\\,\\text{m}}{\\sin5^\\circ}\n      \\approx\\frac{6.5\\times10^{-7}}{0.0872}\\approx7.45\\times10^{-6}\\,\\text{m}\n      =7.45\\times10^{-3}\\,\\text{mm}\n\\]\n\nAnswer: 2",
+        "ai_answer": 2,
+        "correct": true
+    },
+    {
+        "question_id": 9159,
+        "question": "An oscillator which emits high frequency waves at 0.26 GHz is set up in front of a large plane metal reflector. Standing waves are formed with nodes 57.5 cm apart. Neglecting the refractive index of air, compute the velocity of light.",
+        "options": [
+            "5.98 \u00d7 10^10 cm/sec",
+            "3.99 \u00d7 10^10 cm/sec",
+            "3.00 \u00d7 10^10 cm/sec",
+            "2.99 \u00d7 10^11 cm/sec",
+            "2.99 \u00d7 10^10 cm/sec",
+            "2.99 \u00d7 10^9 cm/sec",
+            "1.49 \u00d7 10^10 cm/sec",
+            "1.99 \u00d7 10^11 cm/sec",
+            "1.99 \u00d7 10^10 cm/sec",
+            "4.99 \u00d7 10^10 cm/sec"
+        ],
+        "category": "physics",
+        "src": "stemez-Optics",
+        "answer_index": 4,
+        "model_id": "openai/gpt-oss-20B",
+        "thinking": "High\u2011frequency oscillator:\u202ff = 0.26\u202fGHz = 2.6\u00d710\u2078\u202fHz.  \nFor a standing wave between source and mirror, the distance between adjacent nodes is \u03bb/2, so \u03bb = 2\u00d70.575\u202fm = 1.15\u202fm.  \nSpeed v = f\u03bb = 2.6\u00d710\u2078\u202fHz \u00d7 1.15\u202fm = 2.99\u00d710\u2078\u202fm/s = 2.99\u00d710\u00b9\u2070\u202fcm/s.  \n\nAnswer: 4",
+        "ai_answer": 4,
+        "correct": true
+    }
+]
