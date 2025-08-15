@@ -57,5 +57,74 @@ Once we have a model that has more knowledge, I should turn my attention to grou
 -   Qwen/Qwen2.5-0.5B-Instruct
 -   meta-llama/Llama-3.2-1B-Instruct
 -   google/gemma-3-4b-it
+-   google/gemma-3-270m-it (just came out!)
 
 Models around this scale are possible of running locally on my CPU without slowing me down too much. E.g. a simple question to the 0.5B param Qwen model takes just over a second to get a response.
+
+# [2025-8-15 Fri]
+
+## Is the UGPhysics dataset a good benchmark?
+
+While this is a decently large dataset containing questions and answers, these questions involve mathematical reasoning, which language models (especially small ones) are no good at. In these situations the ideal behaviour would be to call some tool to help reason the question.
+
+## A simpler benchmark - MMLU-Pro Physics Questions
+
+These appear to be more like high school/sixth-form-level questions.
+
+-   Average num tokens per q: 171
+-   Total num tokens: 200k
+
+## High Level Plan: Structure the question, RAG, math tooling.
+
+First, get some idea of how well base models do on this dataset.
+
+Let us initially assume that most of these (now high-school-level) questions can be solved by first selecting the correct formula, based on the variables, then plugging the values into the formula to compute the answer. Then consider the following pipeline:
+
+1. Use LangExtract to convert the free text question into a JSON containing the known and unknown physics variables by name, value and unit.
+2. Based on the information from the structured question, select a formula from a formula sheet (or knowledge base) which contains the physics variables. I.e. have an embedding of each equation based on the physics variables it contains, this will then be found based on a query including those same variables.
+3. Once the RAG pipeline identifies an equation, for calculation, use an external tool (Wolfram Alpha API?)
+
+### Required formatting for the formula sheet
+
+-   Name of all variables included (excluding constants)
+-   SI units
+-   Standard symbol for each variable ({"Energy":"E", "Potential Difference":"V"})
+-   Latex formatting of equation (so it can write it in the working)
+-   Equation name (for reference)
+-   Physics topic
+
+_Example: Newton's Second Law_
+
+```
+{
+    "formula_name": "Newton's Second Law",
+    "equation_latex": "F = ma",
+    "topic": "Mechanics",
+    "variables": [
+      {
+        "symbol": "F",
+        "name": "Force",
+        "unit": "Newtons (N)"
+      },
+      {
+        "symbol": "m",
+        "name": "Mass",
+        "unit": "Kilograms (kg)"
+      },
+      {
+        "symbol": "a",
+        "name": "Acceleration",
+        "unit": "m/s^2"
+      }
+    ]
+}
+```
+
+## Initial Performance on MMLU-Pro Physics Questions
+
+Based on the first ten mechanics questions:
+
+Performance Analysis: openai/gpt-oss-20B
+Total Questions: 9
+Correct Answers: 5
+Accuracy: 55.56%
