@@ -4,7 +4,7 @@ For full details of thought process see the [log](progress_log/log.md)
 
 ## Final Runs
 
-Running the gpt-oss-20B model on 80 astronomy questions.
+Running the gpt-oss-20B model on 80 astronomy questions from the MMLU-Pro benchmark.
 
 | Model              | Method    | Total Questions | Correct Answers | Accuracy | Avg Thinking Length (chars) |
 | ------------------ | --------- | --------------- | --------------- | -------- | --------------------------- |
@@ -16,3 +16,4 @@ Running the gpt-oss-20B model on 80 astronomy questions.
 _CoT increased the number of questions that could be answered, and RAG allowed all questions to be answered._
 
 _Having both CoT and RAG seemed to be worse than RAG alone, but I'd take this with a pinch of salt because I have not tuned the RAG parameters due to time constraints._
+
