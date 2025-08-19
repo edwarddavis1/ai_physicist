@@ -57,8 +57,8 @@ print(formatted_question)
 
 # %%
 # MODEL_ID = "Qwen/Qwen3-235B-A22B"
-# MODEL_ID = "openai/gpt-oss-20B"
-MODEL_ID = "Qwen/Qwen3-32B"
+MODEL_ID = "openai/gpt-oss-20B"
+# MODEL_ID = "Qwen/Qwen3-32B"
 # MODEL_ID = "Qwen/Qwen2.5-0.5B-Instruct"
 # MODEL_ID = "meta-llama/Llama-4-Scout-17B-16E-Instruct"
 
@@ -124,6 +124,7 @@ for idx in tqdm(range(80)):
     Question:
     {formatted_question}
 
+    Let's think step by step.
     """
 
     # Use this prompt if struggling to get an answer out in 512 tokens
@@ -190,7 +191,6 @@ with open(output_file, "w") as f:
 
 # %%
 # Performance Analysis
-
 correct_answers = sum(1 for answer in answers_by_question if answer["correct"])
 total_questions = len(answers_by_question)
 accuracy = correct_answers / total_questions * 100 if total_questions > 0 else 0

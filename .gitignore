@@ -22,3 +22,6 @@ Thumbs.db
 data/
 
 .env
+
+# Specific data files >100MB
+knowledge_base/textbooks/Astronomy2e-WEB.pdf

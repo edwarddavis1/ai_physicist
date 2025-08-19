@@ -8,6 +8,8 @@ from datetime import datetime
 import json
 from tqdm import tqdm
 
+from RAG import PhysicsTextbookRAG
+
 # %%
 # Load the data
 # subject = "QuantumMechanics"
@@ -57,8 +59,8 @@ print(formatted_question)
 
 # %%
 # MODEL_ID = "Qwen/Qwen3-235B-A22B"
-# MODEL_ID = "openai/gpt-oss-20B"
-MODEL_ID = "Qwen/Qwen3-32B"
+MODEL_ID = "openai/gpt-oss-20B"
+# MODEL_ID = "Qwen/Qwen3-32B"
 # MODEL_ID = "Qwen/Qwen2.5-0.5B-Instruct"
 # MODEL_ID = "meta-llama/Llama-4-Scout-17B-16E-Instruct"
 
@@ -102,6 +104,10 @@ except Exception as e:
 
 
 # %%
+# Embed the pdf first - can take a little while as it's a long pdf
+rag = PhysicsTextbookRAG()
+rag.load_textbook("knowledge_base/textbooks/Astronomy2e-WEB.pdf")
+# %%
 answers_by_question = []
 
 for idx in tqdm(range(80)):
@@ -116,40 +122,10 @@ for idx in tqdm(range(80)):
         formatted_question += f"{i}. {option}\n"
 
 
-    PROMPT_TEMPLATE = """
-    You are a helpful and knowledgeable assistant, specialising in Physics. Below is a multiple-choice question. Provide a chain of thought as you solve the problem, stating any relevant principles, concepts or equations. After this thinking, state the correct answer to the question based on the index of the correct option. 
+    # Answer the question using RAG
 
-    It is essential that the your final answer index is formatted as "Answer: <index>", with no additional text or punctuation, and that your total response is less than 512 characters.
+    thinking = rag.answer_physics_question(formatted_question, model_id=MODEL_ID)
 
-    Question:
-    {formatted_question}
-
-    """
-
-    # Use this prompt if struggling to get an answer out in 512 tokens
-
-    # PROMPT_TEMPLATE = """
-    # You are a helpful and knowledgeable assistant, specialising in Physics. Below is a multiple-choice question. Provide only the index of your selected answer - no other surrounding words or punctuation.
-
-    # Question:
-    # {formatted_question}
-
-    # Answer:
-    # """
-
-
-    prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
-    prompt = prompt_template.format(formatted_question=formatted_question)
-
-    response = client.chat.completions.create(
-        model=MODEL_ID,
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.7,
-        max_tokens=512,
-        seed=123,
-    )
-
-    thinking = response.choices[0].message.content or ""
 
     # NOTE: crude extraction of answer index
     ai_answer = thinking.split("Answer:")[-1].strip()
