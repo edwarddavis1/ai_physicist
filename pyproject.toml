@@ -16,5 +16,6 @@ dependencies = [
     "langchain-openai>=0.3.30",
     "langextract>=1.0.8",
     "pypdf2>=3.0.1",
+    "sentence-transformers>=5.1.0",
     "transformers>=4.55.0",
 ]

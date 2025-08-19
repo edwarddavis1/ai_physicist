@@ -163,6 +163,7 @@ class PhysicsTextbookRAG:
         Question:
         {question}
 
+        Let's think step by step.
         """
 
         prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)

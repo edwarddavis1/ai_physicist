@@ -57,8 +57,8 @@ print(formatted_question)
 
 # %%
 # MODEL_ID = "Qwen/Qwen3-235B-A22B"
-# MODEL_ID = "openai/gpt-oss-20B"
-MODEL_ID = "Qwen/Qwen3-32B"
+MODEL_ID = "openai/gpt-oss-20B"
+# MODEL_ID = "Qwen/Qwen3-32B"
 # MODEL_ID = "Qwen/Qwen2.5-0.5B-Instruct"
 # MODEL_ID = "meta-llama/Llama-4-Scout-17B-16E-Instruct"
 
@@ -104,7 +104,7 @@ except Exception as e:
 # %%
 answers_by_question = []
 
-for idx in tqdm(range(10)):
+for idx in tqdm(range(80)):
 
     question_id = dataset_for_subject['question_id'][idx]
     question = dataset_for_subject['question'][idx]

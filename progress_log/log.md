@@ -195,4 +195,22 @@ _Result_
 
 Clearly much better responses from oss-20B. While the accuracy has dropped for Qwen, this is due to more questions being processed. So adding the RAG step has actually helped with answer formatting (or it's reduced the output characters to within the limit I imposed). In either case, RAG is beneficial.
 
-### RAG improvements: LangExtract?
+**Issues**
+
+-   Embedding the entire 150MB PDF can take a while.
+-   Due to size of the document chunks can be large and not specific enough for the question.
+
+## Final Runs
+
+This time on all 80 astronomy questions. (Ran out of time to run the Qwen model fullly).
+
+| Model              | Method    | Total Questions | Correct Answers | Accuracy | Avg Thinking Length (chars) |
+| ------------------ | --------- | --------------- | --------------- | -------- | --------------------------- |
+| openai/gpt-oss-20B | Base      | 63              | 53              | 84.13%   | 222.02                      |
+| openai/gpt-oss-20B | CoT       | 75              | 59              | 78.67%   | 244.12                      |
+| openai/gpt-oss-20B | RAG       | 80              | 65              | 81.25%   | 117.50                      |
+| openai/gpt-oss-20B | RAG + CoT | 79              | 63              | 79.75%   | 123.13                      |
+
+_CoT increased the number of questions that could be answered, and RAG allowed all questions to be answered._
+
+_Having both CoT and RAG seemed to be worse than RAG alone, but I'd take this with a pinch of salt because I have not tuned the RAG paramters due to time constraints._
