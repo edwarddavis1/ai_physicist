@@ -177,181 +177,23 @@ examples = [
     )
 ]
 
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+LANGEXTRACT_API_KEY = os.getenv("LANGEXTRACT_API_KEY")
 
 structured_question = lx.extract(
     text_or_documents=full_question_text,
     prompt_description=prompt,
     examples=examples,
     model_id="gemini-2.5-flash",
-    api_key=GOOGLE_API_KEY
+    api_key=LANGEXTRACT_API_KEY
 )
 
-# Combine original data with extracted structure
-extracted_question = {
-    # Original question data
-    "question_id": question_id,
-    "original_question": question,
-    "options": options,
-    "correct_answer_index": answer_index,
-    "category": dataset_for_subject['category'][idx],
-    "src": dataset_for_subject['src'][idx],
-    
-    # Extracted structured data
-    "structured_analysis": structured_question.dict(),
-    
-    # Metadata
-    "extraction_timestamp": datetime.now().isoformat(),
-    "full_question_text": full_question_text
-}
 
-print("Successfully extracted structured information!")
-    
-# except Exception as e:
-#     extraction_error = {
-#         "question_id": dataset_for_subject['question_id'][idx],
-#         "question_index": idx,
-#         "error": str(e),
-#         "question_preview": question[:100] + "..." if len(question) > 100 else question
-#     }
-#     print(f"Failed to extract structure: {e}")
-#     extracted_question = None
+lx.io.save_annotated_documents([structured_question], output_name="results/MMLU-Pro_question_extraction/extraction_results.jsonl", output_dir=".")
 
-# %%
-# Save results
-timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-output_file = f"{results_dir}/structured_question_{subject_filter.replace('/', '_')}_{timestamp}.json"
-error_file = f"{results_dir}/extraction_error_{subject_filter.replace('/', '_')}_{timestamp}.json"
-
-# Save successful extraction or error
-if extracted_question:
-    with open(output_file, "w", encoding='utf-8') as f:
-        json.dump(extracted_question, f, indent=4, ensure_ascii=False)
-    print(f"Extraction complete! Results saved to: {output_file}")
-elif extraction_error:
-    with open(error_file, "w", encoding='utf-8') as f:
-        json.dump(extraction_error, f, indent=4, ensure_ascii=False)
-    print(f"Extraction failed. Error details saved to: {error_file}")
-else:
-    print("No extraction attempted.")
-
-# %%
-# Analysis and Statistics for Single Question
-
-def analyze_single_question(extracted_question):
-    """Analyze the extracted structured data for a single question"""
-    
-    if not extracted_question:
-        print("No successfully extracted question to analyze.")
-        return
-    
-    print("="*80)
-    print("SINGLE QUESTION EXTRACTION ANALYSIS")
-    print("="*80)
-    
-    analysis = extracted_question["structured_analysis"]
-    
-    print(f"\nQuestion Details:")
-    print(f"  Question ID: {extracted_question['question_id']}")
-    print(f"  Category: {extracted_question['category']}")
-    print(f"  Source: {extracted_question['src']}")
-    print(f"  Correct Answer Index: {extracted_question['correct_answer_index']}")
-    
-    print(f"\nStructured Analysis:")
-    print(f"  Question Type: {analysis['question_type']}")
-    print(f"  Physics Topic: {analysis['physics_topic']}")
-    print(f"  Sub-topics: {', '.join(analysis['sub_topics']) if analysis['sub_topics'] else 'None identified'}")
-    print(f"  Difficulty Level: {analysis['difficulty_level']}")
-    print(f"  Requires Calculation: {analysis['requires_calculation']}")
-    print(f"  Requires Diagram: {analysis['requires_diagram']}")
-    
-    print(f"\nProblem Structure:")
-    print(f"  Problem Statement: {analysis['problem_statement']}")
-    print(f"  What to Find: {analysis['what_to_find']}")
-    
-    if analysis['given_information']:
-        print(f"\nGiven Information:")
-        for i, info in enumerate(analysis['given_information'], 1):
-            print(f"    {i}. {info}")
-    
-    if analysis['variables']:
-        print(f"\nVariables Identified ({len(analysis['variables'])}):")
-        for var in analysis['variables']:
-            unit_str = f" ({var['unit']})" if var.get('unit') else ""
-            value_str = f" = {var['value']}" if var.get('value') else ""
-            print(f"    • {var['symbol']}: {var['name']}{value_str}{unit_str}")
-    
-    if analysis['relevant_formulas']:
-        print(f"\nRelevant Formulas ({len(analysis['relevant_formulas'])}):")
-        for formula in analysis['relevant_formulas']:
-            print(f"    • {formula['name']}: {formula['equation']} (Topic: {formula['topic']})")
-    
-    if analysis['concepts']:
-        print(f"\nPhysics Concepts ({len(analysis['concepts'])}):")
-        for concept in analysis['concepts']:
-            print(f"    • {concept['name']}: {concept['description']} (Topic: {concept['topic']})")
-    
-    print("="*80)
-
-# Run analysis on the extracted question
-if extracted_question:
-    analyze_single_question(extracted_question)
-else:
-    print("No question was successfully extracted for analysis.")
-
-# %%
-# Display detailed example of extracted structure
-if extracted_question:
-    print("\n" + "="*80)
-    print("DETAILED EXTRACTION EXAMPLE")
-    print("="*80)
-    
-    print(f"Original Question:")
-    print(f"{extracted_question['original_question']}")
-    
-    print(f"\nOptions:")
-    for i, option in enumerate(extracted_question['options']):
-        marker = "✓" if i == extracted_question['correct_answer_index'] else " "
-        print(f"  {i}. {option} {marker}")
-    
-    analysis = extracted_question['structured_analysis']
-    
-    print(f"\nExtracted Structure:")
-    print(f"  Type: {analysis['question_type']}")
-    print(f"  Topic: {analysis['physics_topic']}")
-    print(f"  Difficulty: {analysis['difficulty_level']}")
-    print(f"  Calculation Required: {analysis['requires_calculation']}")
-    
-    print(f"\n  Problem Statement: {analysis['problem_statement']}")
-    print(f"  What to Find: {analysis['what_to_find']}")
-    
-    if analysis['variables']:
-        print(f"\n  Variables ({len(analysis['variables'])}):")
-        for var in analysis['variables']:
-            print(f"    - {var['symbol']}: {var['name']}")
-    
-    if analysis['concepts']:
-        print(f"\n  Key Concepts ({len(analysis['concepts'])}):")
-        for concept in analysis['concepts']:
-            print(f"    - {concept['name']}")
-    
-    print("="*80)
-
-# %%
-# Summary
-print(f"\nExtraction Summary:")
-if extracted_question:
-    print("✓ Successfully extracted structured information from the question")
-    print(f"  - Saved to: {output_file}")
-    print(f"  - Extraction timestamp: {extracted_question['extraction_timestamp']}")
-elif extraction_error:
-    print("✗ Failed to extract structured information")
-    print(f"  - Error details saved to: {error_file}")
-    print(f"  - Error: {extraction_error['error']}")
-else:
-    print("? No extraction was attempted")
-
-print(f"\nThis script demonstrates how LangExtract can be used to convert")
-print(f"free-text physics questions into structured, analyzable data.")
-
-# %%
+# Generate the visualization from the file
+html_content = lx.visualize("results/MMLU-Pro_question_extraction/extraction_results.jsonl")
+with open("visualization.html", "w") as f:
+    if hasattr(html_content, 'data'):
+        f.write(html_content.data)  # For Jupyter/Colab
+    else:
+        f.write(html_content)

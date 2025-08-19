@@ -10,6 +10,11 @@ dependencies = [
     "ipykernel>=6.30.1",
     "ipywidgets>=8.1.7",
     "langchain>=0.3.27",
+    "langchain-chroma>=0.2.5",
+    "langchain-community>=0.3.27",
+    "langchain-huggingface>=0.3.1",
+    "langchain-openai>=0.3.30",
     "langextract>=1.0.8",
+    "pypdf2>=3.0.1",
     "transformers>=4.55.0",
 ]
